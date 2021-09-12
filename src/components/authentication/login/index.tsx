@@ -1,20 +1,21 @@
-import { Formik, Form } from 'formik'
+import { Formik, Form, Field } from 'formik'
 import Router from 'next/router'
 import * as Yup from 'yup'
 import { setCookie } from 'nookies'
 import { Container } from '../../container'
-import InputForm from '../../forms/inputs'
 import * as Styles from '../styles'
 import { USER_LOGIN } from '../../../graphql/queries/login'
 import { initializeApollo } from '../../../graphql/client'
 import sweetAlert from '../../../utils/window-alert'
 import { FormsButton } from '../../forms/formsButton'
-import { ArrowForwardIos } from '@material-ui/icons'
+import { ArrowForwardIos, LockOpen } from '@material-ui/icons'
 import { FormsCheckbox } from '../../forms/formsCheckbox'
-import { FormControlLabel } from '@material-ui/core'
+import { FormControlLabel, InputAdornment } from '@material-ui/core'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import React from 'react'
 import { Text } from '../../basics/text'
 import { CustomLink } from '../../basics/link'
+import { FormsTextField } from '../../forms/formsTextField'
 interface ILogin {
   email: string
   password: string
@@ -28,12 +29,13 @@ const initialValues: ILogin = {
 }
 
 const schema = Yup.object().shape({
-  email: Yup.string().required().email(),
-  password: Yup.string().min(3).required()
+  email: Yup.string().required('email é necessário').email(),
+  password: Yup.string().min(3).required('senha é necessária')
 })
 
 const Login = () => {
   const handleSubmit = async (values: ILogin) => {
+    console.log(values)
     const apolloClient = initializeApollo()
     const user = {
       email: values.email,
@@ -74,23 +76,46 @@ const Login = () => {
               {({ errors, touched }) => (
                 <Form>
                   <Styles.Items>
-                    <InputForm
+                    <Field
+                      as={FormsTextField}
                       name="email"
                       type="email"
-                      placeholder="email"
-                      error={errors.email && touched.email && errors.email} />
+                      label="email"
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <AccountCircleIcon />
+                          </InputAdornment>
+                        )
+                      }}
+                      helperText={errors.email && touched.email && errors.email}
+                    />
 
-                    <InputForm
+                    <Field
+                      as={FormsTextField}
                       name="password"
                       type="password"
-                      placeholder="senha"
-                      error={errors.password && touched.password && errors.password} />
+                      label="senha"
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <LockOpen />
+                          </InputAdornment>
+                        )
+                      }}
+                      helperText={errors.password && touched.password && errors.password}
+                    />
+
                     <FormControlLabel
                       name='rememberMe'
                       control={<FormsCheckbox name='rememberMe' size='small' color='default' />}
                       label="lembrar-me"
                     />
-                    <FormsButton name='submit' type='submit' endIcon={<ArrowForwardIos />}>
+                    <FormsButton name='submit' type='submit' color='primary' endIcon={<ArrowForwardIos />}>
                       <Text>ENTRAR</Text>
                     </FormsButton>
                   </Styles.Items>
@@ -98,12 +123,12 @@ const Login = () => {
               )}
             </Formik>
             <Text>Não tem uma conta ?
-                <CustomLink
-                  variant='body1'
-                  onClick={async () => await Router.push('/register')}
-                > registre-se
-                </CustomLink>
-              </Text>
+              <CustomLink
+                variant='body1'
+                onClick={async () => await Router.push('/register')}
+              > registre-se
+              </CustomLink>
+            </Text>
           </Styles.Square>
         </Styles.Content>
       </Container>
