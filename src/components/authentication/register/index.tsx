@@ -9,6 +9,8 @@ import sweetAlert from '../../../utils/window-alert'
 import * as Styles from '../styles'
 import { Container } from '../../container'
 import { FormsButton } from '../../forms/formsButton'
+import { Text } from '../../basics/text'
+import { CustomLink } from '../../basics/link'
 
 const initialValues = {
   email: '',
@@ -103,14 +105,21 @@ const Register = () => {
                       error={errors.passwordConfirmation && touched.passwordConfirmation && errors.passwordConfirmation}
                     />
 
-                    <FormsButton endIcon={<ArrowForwardIos/>} name='submit' type='submit'>CADASTRAR</FormsButton>
+                    <FormsButton endIcon={<ArrowForwardIos />} name='submit' type='submit'>
+                      <Text>CADASTRAR</Text>
+                    </FormsButton>
                   </Styles.Items>
                 </Form>
               )}
             </Formik>
             <Styles.ToRegister >
-              Já tem uma conta ?
-              <Styles.Register onClick={async () => await Router.push('/login')}>entrar</Styles.Register>
+              <Text>Já tem uma conta ?
+                <CustomLink
+                  variant='body1'
+                  onClick={async () => await Router.push('/login')}
+                > entrar
+                </CustomLink>
+              </Text>
             </Styles.ToRegister>
           </Styles.Square>
         </Styles.Content>

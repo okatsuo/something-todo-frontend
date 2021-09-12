@@ -5,12 +5,16 @@ import { setCookie } from 'nookies'
 import { Container } from '../../container'
 import InputForm from '../../forms/inputs'
 import * as Styles from '../styles'
-import CheckboxForm from '../../forms/checkbox'
 import { USER_LOGIN } from '../../../graphql/queries/login'
 import { initializeApollo } from '../../../graphql/client'
 import sweetAlert from '../../../utils/window-alert'
 import { FormsButton } from '../../forms/formsButton'
 import { ArrowForwardIos } from '@material-ui/icons'
+import { FormsCheckbox } from '../../forms/formsCheckbox'
+import { FormControlLabel } from '@material-ui/core'
+import React from 'react'
+import { Text } from '../../basics/text'
+import { CustomLink } from '../../basics/link'
 interface ILogin {
   email: string
   password: string
@@ -81,18 +85,25 @@ const Login = () => {
                       type="password"
                       placeholder="senha"
                       error={errors.password && touched.password && errors.password} />
-
-                    <CheckboxForm name='rememberMe' message='lembrar-me' />
-
-                    <FormsButton name='submit' type='submit' endIcon={<ArrowForwardIos />}>ENTRAR</FormsButton>
+                    <FormControlLabel
+                      name='rememberMe'
+                      control={<FormsCheckbox name='rememberMe' size='small' color='default' />}
+                      label="lembrar-me"
+                    />
+                    <FormsButton name='submit' type='submit' endIcon={<ArrowForwardIos />}>
+                      <Text>ENTRAR</Text>
+                    </FormsButton>
                   </Styles.Items>
                 </Form>
               )}
             </Formik>
-            <Styles.ToRegister>
-              Não tem uma conta ?
-              <Styles.Register onClick={async () => await Router.push('/register')}>registre-se</Styles.Register>
-            </Styles.ToRegister>
+            <Text>Não tem uma conta ?
+                <CustomLink
+                  variant='body1'
+                  onClick={async () => await Router.push('/register')}
+                > registre-se
+                </CustomLink>
+              </Text>
           </Styles.Square>
         </Styles.Content>
       </Container>
