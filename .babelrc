@@ -1,5 +1,8 @@
 {
-  "presets": ["next/babel", "@babel/preset-typescript"],
+  "presets": [
+    "next/babel",
+    "@babel/preset-typescript"
+  ],
   "plugins": [
     [
       "babel-plugin-styled-components",
@@ -7,6 +10,24 @@
         "ssr": true,
         "displayName": true
       }
+    ],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "@material-ui/core",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "core"
+    ],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "icons"
     ]
   ],
   "env": {
