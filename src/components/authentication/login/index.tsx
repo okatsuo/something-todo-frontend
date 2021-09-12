@@ -4,12 +4,13 @@ import * as Yup from 'yup'
 import { setCookie } from 'nookies'
 import { Container } from '../../container'
 import InputForm from '../../forms/inputs'
-import Button from '../../forms/button'
 import * as Styles from '../styles'
 import CheckboxForm from '../../forms/checkbox'
 import { USER_LOGIN } from '../../../graphql/queries/login'
 import { initializeApollo } from '../../../graphql/client'
 import sweetAlert from '../../../utils/window-alert'
+import { FormsButton } from '../../forms/formsButton'
+import { ArrowForwardIos } from '@material-ui/icons'
 interface ILogin {
   email: string
   password: string
@@ -83,7 +84,7 @@ const Login = () => {
 
                     <CheckboxForm name='rememberMe' message='lembrar-me' />
 
-                    <Button name='submit' type="submit" value="ENTRAR" />
+                    <FormsButton name='submit' type='submit' endIcon={<ArrowForwardIos />}>ENTRAR</FormsButton>
                   </Styles.Items>
                 </Form>
               )}

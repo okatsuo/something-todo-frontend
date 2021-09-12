@@ -3,6 +3,8 @@ const theme = {
     primaryBackground: '#25262A',
     secondaryBackground: '#37383C',
     lightGrey: '#C4C4C4',
+    green: '#40D67C',
+    darkGreen: '#36B269',
     text: '#FFFFFF'
   },
   font: {

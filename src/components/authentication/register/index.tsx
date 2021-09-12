@@ -1,13 +1,14 @@
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import { ArrowForwardIos } from '@material-ui/icons'
 import Router from 'next/router'
 import { useApollo } from '../../../graphql/client'
 import { USER_CREATE } from '../../../graphql/mutations/createUser'
-import Button from '../../forms/button'
 import InputForm from '../../forms/inputs'
 import sweetAlert from '../../../utils/window-alert'
 import * as Styles from '../styles'
 import { Container } from '../../container'
+import { FormsButton } from '../../forms/formsButton'
 
 const initialValues = {
   email: '',
@@ -102,7 +103,7 @@ const Register = () => {
                       error={errors.passwordConfirmation && touched.passwordConfirmation && errors.passwordConfirmation}
                     />
 
-                    <Button name='submit' type='submit' value='CADASTRAR' width='150px' />
+                    <FormsButton endIcon={<ArrowForwardIos/>} name='submit' type='submit'>CADASTRAR</FormsButton>
                   </Styles.Items>
                 </Form>
               )}
