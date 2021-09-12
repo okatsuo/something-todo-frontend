@@ -5,6 +5,7 @@ import theme from '../../styles/theme'
 import { ThemeProvider } from 'styled-components'
 import { ApolloProvider } from '@apollo/client'
 import { useApollo } from '../graphql/client'
+import { StylesProvider } from '@material-ui/styles'
 
 function MyApp ({ Component, pageProps }: AppProps) {
   const client = useApollo(pageProps.initialApoloState)
@@ -19,8 +20,10 @@ function MyApp ({ Component, pageProps }: AppProps) {
       </Head>
       <ApolloProvider client={client}>
         <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-          <GlobalStyle />
+          <StylesProvider injectFirst>
+            <Component {...pageProps} />
+            <GlobalStyle />
+          </StylesProvider>
         </ThemeProvider>
       </ApolloProvider>
     </>
