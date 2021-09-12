@@ -5,7 +5,11 @@ import { ServerStyleSheets } from '@material-ui/core/styles'
 export default class MyDocument extends Document {
   render () {
     return (
+<<<<<<< HEAD
       <Html lang='pt-BR'>
+=======
+      <Html lang='en'>
+>>>>>>> b40e65fcade885026ff3c915dd85bf2303c82f6a
         <Head>
           <link
             rel='stylesheet'
