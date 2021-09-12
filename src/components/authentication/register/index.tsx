@@ -1,13 +1,18 @@
-import { Form, Formik } from 'formik'
+import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
+import { ArrowForwardIos } from '@material-ui/icons'
 import Router from 'next/router'
 import { useApollo } from '../../../graphql/client'
 import { USER_CREATE } from '../../../graphql/mutations/createUser'
-import Button from '../../forms/button'
-import InputForm from '../../forms/inputs'
 import sweetAlert from '../../../utils/window-alert'
 import * as Styles from '../styles'
 import { Container } from '../../container'
+import { FormsButton } from '../../forms/formsButton'
+import { Text } from '../../basics/text'
+import { CustomLink } from '../../basics/link'
+import { FormsTextField } from '../../forms/formsTextField'
+import React from 'react'
+import { InputAdornment } from '@material-ui/core'
 
 const initialValues = {
   email: '',
@@ -75,41 +80,85 @@ const Register = () => {
               {({ errors, touched }) => (
                 <Form>
                   <Styles.Items>
-                    <InputForm
-                      name='name'
-                      type='text'
-                      placeholder='name'
-                      error={errors.name && touched.name && errors.name}
+                    <Field
+                      as={FormsTextField}
+                      name="name"
+                      type="text"
+                      label="name"
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                          </InputAdornment>
+                        )
+                      }}
+                      helperText={errors.name && touched.name && errors.name}
                     />
 
-                    <InputForm
-                      name='email'
-                      type='email'
-                      placeholder='email'
-                      error={errors.email && touched.email && errors.email}
+                    <Field
+                      as={FormsTextField}
+                      name="email"
+                      type="email"
+                      label="email"
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                          </InputAdornment>
+                        )
+                      }}
+                      helperText={errors.email && touched.email && errors.email}
                     />
 
-                    <InputForm
-                      name='password'
-                      type='password'
-                      placeholder='senha'
-                      error={errors.password && touched.password && errors.password} />
-
-                    <InputForm
-                      name='passwordConfirmation'
-                      type='password'
-                      placeholder='confirmação da senha'
-                      error={errors.passwordConfirmation && touched.passwordConfirmation && errors.passwordConfirmation}
+                    <Field
+                      as={FormsTextField}
+                      name="password"
+                      type="password"
+                      label="senha"
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                          </InputAdornment>
+                        )
+                      }}
+                      helperText={errors.password && touched.password && errors.password}
                     />
 
-                    <Button name='submit' type='submit' value='CADASTRAR' width='150px' />
+                    <Field
+                      as={FormsTextField}
+                      name="passwordConfirmation"
+                      type="password"
+                      label="confirmação da senha"
+                      variant="outlined"
+                      size="small"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                          </InputAdornment>
+                        )
+                      }}
+                      helperText={errors.passwordConfirmation && touched.passwordConfirmation && errors.passwordConfirmation}
+                    />
+
+                    <FormsButton endIcon={<ArrowForwardIos />} name='submit' type='submit'>
+                      <Text>CADASTRAR</Text>
+                    </FormsButton>
                   </Styles.Items>
                 </Form>
               )}
             </Formik>
             <Styles.ToRegister >
-              Já tem uma conta ?
-              <Styles.Register onClick={async () => await Router.push('/login')}>entrar</Styles.Register>
+              <Text>Já tem uma conta ?
+                <CustomLink
+                  variant='body1'
+                  onClick={async () => await Router.push('/login')}
+                > entrar
+                </CustomLink>
+              </Text>
             </Styles.ToRegister>
           </Styles.Square>
         </Styles.Content>
