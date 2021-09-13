@@ -81,7 +81,6 @@ const Login = () => {
                       type="email"
                       label="email"
                       variant="outlined"
-                      size="small"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
@@ -98,7 +97,6 @@ const Login = () => {
                       type="password"
                       label="senha"
                       variant="outlined"
-                      size="small"
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
