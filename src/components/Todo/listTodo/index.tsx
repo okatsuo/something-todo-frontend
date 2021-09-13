@@ -1,6 +1,8 @@
-import { Box, Container, List, ListItem, ListItemText, TextField } from '@material-ui/core'
+import { Box, Container, InputAdornment, List, ListItem, ListItemText } from '@material-ui/core'
 import { AddCircle } from '@material-ui/icons'
+import React from 'react'
 import { Hr } from '../../basics/hr'
+import { InputAddTodo } from '../addTodo'
 import * as Styles from './styles'
 
 const Todo = ({ userTodo }: any) => {
@@ -10,14 +12,26 @@ const Todo = ({ userTodo }: any) => {
         <Container maxWidth='md'>
           <Styles.Content>
             <Box m={3} justifyContent='center' alignItems='center' display='flex' flexDirection='row'>
-              <TextField fullWidth variant='filled' label='nova' style={{ paddingRight: '15px' }}>inserir uma nova terefa</TextField>
-              <AddCircle accentHeight='20px' style={{ color: '#40D67C', fontSize: '60px' }} />
+              <InputAddTodo
+                variant='filled'
+                label='adicionar uma nova terefa'
+                style={{ paddingRight: '15px' }}
+                fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <AddCircle accentHeight='20px'/>
+                    </InputAdornment>
+                  ),
+                  disableUnderline: true
+                }}
+              />
             </Box>
             <List component="nav" aria-label="mailbox folders">
               {userTodo.map((todo: any) =>
                 <>
                   <ListItem button >
-                    <ListItemText primary={todo.name}/>
+                    <ListItemText primary={todo.name} />
                   </ListItem>
                   <Hr />
                 </>
