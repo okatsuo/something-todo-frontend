@@ -1,8 +1,9 @@
 import { Box, Container, InputAdornment, List, ListItem, ListItemText } from '@material-ui/core'
-import { AddCircle } from '@material-ui/icons'
+import { AddCircle, CheckCircle, Delete, RadioButtonUnchecked } from '@material-ui/icons'
 import React from 'react'
 import { Hr } from '../../basics/hr'
 import { InputAddTodo } from '../addTodo'
+import { TodoCheckbox } from '../checkboxTodo'
 import * as Styles from './styles'
 
 const Todo = ({ userTodo }: any) => {
@@ -31,7 +32,9 @@ const Todo = ({ userTodo }: any) => {
               {userTodo.map((todo: any) =>
                 <>
                   <ListItem button >
+                    <TodoCheckbox icon={<RadioButtonUnchecked />} checkedIcon={<CheckCircle/>}/>
                     <ListItemText primary={todo.name} />
+                    <Delete />
                   </ListItem>
                   <Hr />
                 </>
