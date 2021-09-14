@@ -7,4 +7,10 @@ const LoginPage = () => {
   )
 }
 
+export const getStaticProps = async () => {
+  return {
+    props: {}
+  }
+}
+
 export default LoginPage

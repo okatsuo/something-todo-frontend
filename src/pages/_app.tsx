@@ -19,12 +19,12 @@ function MyApp ({ Component, pageProps }: AppProps) {
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </Head>
       <ApolloProvider client={client}>
-        <ThemeProvider theme={theme}>
           <StylesProvider injectFirst>
-            <Component {...pageProps} />
-            <GlobalStyle />
+            <ThemeProvider theme={theme}>
+              <Component {...pageProps} />
+              <GlobalStyle />
+            </ThemeProvider>
           </StylesProvider>
-        </ThemeProvider>
       </ApolloProvider>
     </>
   )
