@@ -12,7 +12,7 @@ export default class MyDocument extends Document {
             href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
           />
         </Head>
-        <body style={{ height: '100vh', background: "linear-gradient(to right bottom, #37383c, #323337, #2e2f33, #292a2e, #25262a);" }}>
+        <body style={{ height: '100vh' }}>
           <Main />
           <NextScript />
         </body>

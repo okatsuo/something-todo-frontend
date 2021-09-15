@@ -29,15 +29,15 @@ const Todo = ({ userTodo }: any) => {
               />
             </Box>
             <List component="nav" aria-label="mailbox folders">
-              {userTodo.map((todo: any) =>
-                <>
+              {userTodo.map((todo: any, index: number) =>
+                <div key={todo.id}>
                   <ListItem button >
-                    <TodoCheckbox icon={<RadioButtonUnchecked />} checkedIcon={<CheckCircle/>}/>
+                    <TodoCheckbox icon={<RadioButtonUnchecked />} checkedIcon={<CheckCircle/>} />
                     <ListItemText primary={todo.name} />
                     <Delete />
                   </ListItem>
                   <Hr />
-                </>
+                </div>
               )}
             </List>
           </Styles.Content>
