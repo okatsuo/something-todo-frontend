@@ -9,9 +9,9 @@ import sweetAlert from '../../../utils/window-alert'
 import { FormsButton } from '../../forms/formsButton'
 import { ArrowForwardIos, LockOpen } from '@material-ui/icons'
 import { FormsCheckbox } from '../../forms/formsCheckbox'
-import { FormControlLabel, InputAdornment, Container } from '@material-ui/core'
+import { FormControlLabel, InputAdornment, Container, Backdrop, CircularProgress } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import React from 'react'
+import React, { useState } from 'react'
 import { Text } from '../../basics/text'
 import { CustomLink } from '../../basics/link'
 import { FormsTextField } from '../../forms/formsTextField'
@@ -33,6 +33,7 @@ const schema = Yup.object().shape({
 })
 
 const Login = () => {
+  const [loading, setLoading] = useState(false)
   const handleSubmit = async (values: ILogin) => {
     const apolloClient = initializeApollo()
     const user = {
@@ -40,17 +41,20 @@ const Login = () => {
       password: values.password
     }
     try {
+      setLoading(true)
       const { data } = await apolloClient.query({
         query: USER_LOGIN,
         variables: user
       })
       const { token } = data.accountLogin
       setCookie(null, 't_user', token, {
-        maxAge: 8640,
+        maxAge: values.rememberMe ? 2147483647 : 8640,
         path: '/'
       })
+      setLoading(false)
       await Router.push('/')
     } catch (error) {
+      setLoading(false)
       await sweetAlert({
         title: 'Opa...',
         icon: 'error',
@@ -58,7 +62,6 @@ const Login = () => {
       })
     }
   }
-
   return (
     <Styles.Wrapper>
       <Container>
@@ -118,6 +121,9 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
+            <Backdrop open={loading} style={{ zIndex: 1 }}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <Text>Não tem uma conta ?
               <CustomLink
                 variant='body1'

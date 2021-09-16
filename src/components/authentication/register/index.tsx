@@ -11,8 +11,8 @@ import { FormsButton } from '../../forms/formsButton'
 import { Text } from '../../basics/text'
 import { CustomLink } from '../../basics/link'
 import { FormsTextField } from '../../forms/formsTextField'
-import React from 'react'
-import { InputAdornment } from '@material-ui/core'
+import React, { useState } from 'react'
+import { Backdrop, CircularProgress, InputAdornment } from '@material-ui/core'
 
 const initialValues = {
   email: '',
@@ -36,8 +36,10 @@ const schema = Yup.object().shape({
 })
 
 const Register = () => {
+  const [loading, setLoading] = useState(false)
   const apolloClient = useApollo()
   const handleSubmit = async (values: registerFields) => {
+    setLoading(true)
     if (values.password === values.passwordConfirmation) {
       const user = {
         name: values.name,
@@ -49,8 +51,10 @@ const Register = () => {
           mutation: USER_CREATE,
           variables: user
         })
+        setLoading(false)
         await Router.push('/login')
       } catch (error) {
+        setLoading(false)
         await sweetAlert({
           title: 'Opa...',
           icon: 'error',
@@ -58,6 +62,7 @@ const Register = () => {
         })
       }
     } else {
+      setLoading(false)
       await sweetAlert({
         title: 'Opa...',
         icon: 'question',
@@ -151,6 +156,9 @@ const Register = () => {
                 </Form>
               )}
             </Formik>
+            <Backdrop open={loading} style={{ zIndex: 1 }}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
             <Styles.ToRegister >
               <Text>Já tem uma conta ?
                 <CustomLink
