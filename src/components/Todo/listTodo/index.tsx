@@ -40,7 +40,9 @@ const Todo = () => {
     }
   }
   useEffect(() => {
-    setUserTodo(userTodo.loadTodo)
+    if (userTodo) {
+      setUserTodo(userTodo.loadTodo)
+    }
   }, [userTodo])
   console.log(loading)
   return (
