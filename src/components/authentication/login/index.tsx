@@ -9,12 +9,13 @@ import sweetAlert from '../../../utils/window-alert'
 import { FormsButton } from '../../forms/formsButton'
 import { ArrowForwardIos, LockOpen } from '@material-ui/icons'
 import { FormsCheckbox } from '../../forms/formsCheckbox'
-import { FormControlLabel, InputAdornment, Container, Backdrop, CircularProgress } from '@material-ui/core'
+import { FormControlLabel, InputAdornment, Container } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import React, { useState } from 'react'
 import { Text } from '../../basics/text'
 import { CustomLink } from '../../basics/link'
 import { FormsTextField } from '../../forms/formsTextField'
+import Loading from '../../basics/loading'
 interface ILogin {
   email: string
   password: string
@@ -121,9 +122,7 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
-            <Backdrop open={loading} style={{ zIndex: 1 }}>
-              <CircularProgress color="inherit" />
-            </Backdrop>
+            <Loading open={loading}/>
             <Text>Não tem uma conta ?
               <CustomLink
                 variant='body1'

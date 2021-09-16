@@ -12,7 +12,8 @@ import { Text } from '../../basics/text'
 import { CustomLink } from '../../basics/link'
 import { FormsTextField } from '../../forms/formsTextField'
 import React, { useState } from 'react'
-import { Backdrop, CircularProgress, InputAdornment } from '@material-ui/core'
+import { InputAdornment } from '@material-ui/core'
+import Loading from '../../basics/loading'
 
 const initialValues = {
   email: '',
@@ -156,9 +157,7 @@ const Register = () => {
                 </Form>
               )}
             </Formik>
-            <Backdrop open={loading} style={{ zIndex: 1 }}>
-              <CircularProgress color="inherit" />
-            </Backdrop>
+            <Loading open={loading}/>
             <Styles.ToRegister >
               <Text>Já tem uma conta ?
                 <CustomLink
