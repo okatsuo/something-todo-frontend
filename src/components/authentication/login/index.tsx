@@ -34,7 +34,6 @@ const schema = Yup.object().shape({
 
 const Login = () => {
   const handleSubmit = async (values: ILogin) => {
-    console.log(values)
     const apolloClient = initializeApollo()
     const user = {
       email: values.email,

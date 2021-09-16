@@ -1,10 +1,13 @@
+import { NoSsr } from '@material-ui/core'
 import type { NextPage } from 'next'
 import HomeTemplate from '../template/homeTemplate'
 import isLogged from '../utils/authentication'
 
 const Home: NextPage = () => {
   return (
-    <HomeTemplate />
+    <NoSsr>
+      <HomeTemplate />
+    </NoSsr>
   )
 }
 

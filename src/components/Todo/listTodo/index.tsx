@@ -44,7 +44,7 @@ const Todo = () => {
       setUserTodo(userTodo.loadTodo)
     }
   }, [userTodo])
-  console.log(loading)
+
   return (
     <>
       <Styles.Wrapper>
