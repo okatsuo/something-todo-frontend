@@ -1,11 +1,11 @@
 import Header from '../components/header'
 import Todo from '../components/Todo/listTodo'
 
-const HomeTemplate = ({ data }: any) => {
+const HomeTemplate = () => {
   return (
     <>
       <Header />
-      <Todo userTodo={data.userTodo} />
+      <Todo />
     </>
   )
 }
