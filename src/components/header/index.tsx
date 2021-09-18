@@ -10,7 +10,7 @@ const Header = () => {
 
   const logout = async () => {
     UserLogout()
-    await Router.push('/login')
+    await Router.push('/')
   }
 
   return (
