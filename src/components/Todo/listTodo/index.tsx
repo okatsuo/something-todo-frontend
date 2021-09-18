@@ -63,7 +63,6 @@ const Todo = () => {
   }
 
   const handleKeyboardEvent = async ({ key }: KeyboardEvent) => {
-    console.log(key)
     if (key === 'Enter') {
       await handleRegisterTodo()
     }
@@ -98,7 +97,7 @@ const Todo = () => {
               {!loading &&
                 userTodos.map((todo: any) =>
                   <div key={todo.id}>
-                    <ListItem button >
+                    <ListItem button key={todo.id}>
                       <TodoCheckbox />
                       <ListItemText primary={todo.name} />
                       <DeleteTodo onClick={async () => await handleRemoveTodo(todo.id)}/>
