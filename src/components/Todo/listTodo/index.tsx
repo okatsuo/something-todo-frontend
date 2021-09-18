@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 import { Box, Container, InputAdornment, List, ListItem, ListItemText } from '@material-ui/core'
 import { AddCircle } from '@material-ui/icons'
-import React, { useEffect, useState } from 'react'
+import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { initializeApollo } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
 import { REMOVE_TODO } from '../../../graphql/mutations/removeTodo'
@@ -62,7 +62,7 @@ const Todo = () => {
     }
   }
 
-  const handleKeyboardEvent = async ({ key }: KeyboardEvent<HTMLDivElement>) => {
+  const handleKeyboardEvent = async ({ key }: KeyboardEvent) => {
     console.log(key)
     if (key === 'Enter') {
       await handleRegisterTodo()
