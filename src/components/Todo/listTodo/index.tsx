@@ -75,7 +75,7 @@ const Todo = () => {
               userTodos.map((todo: any) =>
               <div key={todo.id}>
                 <ListItem button >
-                  <TodoCheckbox icon={<RadioButtonUnchecked />} checkedIcon={<CheckCircle/>} />
+                  <TodoCheckbox icon={<RadioButtonUnchecked color='inherit'/>} checkedIcon={<CheckCircle/>} />
                   <ListItemText primary={todo.name} />
                   <Delete />
                 </ListItem>

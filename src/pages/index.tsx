@@ -1,26 +1,23 @@
 import { NoSsr } from '@material-ui/core'
-import type { NextPage } from 'next'
 import HomeTemplate from '../template/homeTemplate'
+import LoginTemplate from '../template/loginTemplate'
 import isLogged from '../utils/authentication'
 
-const Home: NextPage = () => {
+const Home = (props: any) => {
+  const { isAuthenticatedUser } = props
   return (
-    <NoSsr>
-      <HomeTemplate />
-    </NoSsr>
-  )
+  <NoSsr>
+    {isAuthenticatedUser
+      ? <HomeTemplate />
+      : <LoginTemplate/>
+    }
+  </NoSsr>)
 }
 
 export const getServerSideProps = async (ctx: any) => {
-  if (!isLogged(ctx)) {
-    return {
-      redirect: { destination: '/login', permanent: false }
-    }
-  }
-
   return {
     props: {
-
+      isAuthenticatedUser: isLogged(ctx)
     }
   }
 }

@@ -30,10 +30,10 @@ interface registerFields {
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required(),
-  email: Yup.string().required(),
-  password: Yup.string().required(),
-  passwordConfirmation: Yup.string().required()
+  name: Yup.string().required('é requerido'),
+  email: Yup.string().required('é requerido'),
+  password: Yup.string().required('é requerido'),
+  passwordConfirmation: Yup.string().required('é requerido')
 })
 
 const Register = () => {
@@ -53,7 +53,7 @@ const Register = () => {
           variables: user
         })
         setLoading(false)
-        await Router.push('/login')
+        await Router.push('/')
       } catch (error) {
         setLoading(false)
         await sweetAlert({
@@ -162,7 +162,7 @@ const Register = () => {
               <Text>Já tem uma conta ?
                 <CustomLink
                   variant='body1'
-                  onClick={async () => await Router.push('/login')}
+                  onClick={async () => await Router.push('/')}
                 > entrar
                 </CustomLink>
               </Text>
