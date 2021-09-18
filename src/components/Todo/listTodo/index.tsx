@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import { Box, Container, InputAdornment, List, ListItem, ListItemText } from '@material-ui/core'
-import { AddCircle, CheckCircle, Delete, RadioButtonUnchecked } from '@material-ui/icons'
+import { AddCircle } from '@material-ui/icons'
 import React, { useEffect, useState } from 'react'
 import { initializeApollo } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
@@ -10,6 +10,7 @@ import { UserLoggedInfo } from '../../../utils/user-account-stuff'
 import { Hr } from '../../basics/hr'
 import { InputAddTodo } from '../addTodo'
 import { TodoCheckbox } from '../checkboxTodo'
+import DeleteTodo from '../removeTodo'
 import * as Styles from './styles'
 
 const Todo = () => {
@@ -29,6 +30,7 @@ const Todo = () => {
   }, [userTodo])
 
   const handleRegisterTodo = async () => {
+    if (!newTodo) return
     const todo = {
       name: newTodo,
       description: '',
@@ -54,10 +56,16 @@ const Todo = () => {
         variables: { id }
       })
       if (data.removeTodo) {
-        console.log(userTodos.filter((todo) => todo))
         setUserTodo(userTodos.filter((todo: any) => todo.id !== id))
       }
     } catch (error) {
+    }
+  }
+
+  const handleKeyboardEvent = async ({ key }: KeyboardEvent<HTMLDivElement>) => {
+    console.log(key)
+    if (key === 'Enter') {
+      await handleRegisterTodo()
     }
   }
 
@@ -74,11 +82,12 @@ const Todo = () => {
                 fullWidth
                 value={newTodo}
                 onChange={(event) => setNewTodo(event.target.value)}
+                onKeyPress={async (key) => await handleKeyboardEvent(key)}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
                       <div onClick={async () => await handleRegisterTodo()} style={{ cursor: 'pointer' }}>
-                        <AddCircle accentHeight='20px'/>
+                        <AddCircle accentHeight='20px' />
                       </div>
                     </InputAdornment>
                   ),
@@ -88,18 +97,16 @@ const Todo = () => {
             </Box>
             <List component="nav" aria-label="mailbox folders">
               {!loading &&
-              userTodos.map((todo: any) =>
-              <div key={todo.id}>
-                <ListItem button >
-                  <TodoCheckbox icon={<RadioButtonUnchecked color='inherit'/>} checkedIcon={<CheckCircle/>} />
-                  <ListItemText primary={todo.name} />
-                  <span onClick={async () => await handleRemoveTodo(todo.id)}>
-                    <Delete />
-                  </span>
-                </ListItem>
-                <Hr />
-              </div>
-              )}
+                userTodos.map((todo: any) =>
+                  <div key={todo.id}>
+                    <ListItem button >
+                      <TodoCheckbox />
+                      <ListItemText primary={todo.name} />
+                      <DeleteTodo onClick={async () => await handleRemoveTodo(todo.id)}/>
+                    </ListItem>
+                    <Hr />
+                  </div>
+                )}
             </List>
           </Styles.Content>
         </Container>
