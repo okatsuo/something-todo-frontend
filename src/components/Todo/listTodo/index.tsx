@@ -4,6 +4,7 @@ import { AddCircle, CheckCircle, Delete, RadioButtonUnchecked } from '@material-
 import React, { useEffect, useState } from 'react'
 import { initializeApollo } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
+import { REMOVE_TODO } from '../../../graphql/mutations/removeTodo'
 import { USER_TODO } from '../../../graphql/queries/userTodos'
 import { UserLoggedInfo } from '../../../utils/user-account-stuff'
 import { Hr } from '../../basics/hr'
@@ -20,6 +21,12 @@ const Todo = () => {
   const { data: userTodo, loading } = useQuery(USER_TODO, {
     variables: { user_id: userCookies?.id }
   })
+
+  useEffect(() => {
+    if (userTodo) {
+      setUserTodo(userTodo.loadTodo)
+    }
+  }, [userTodo])
 
   const handleRegisterTodo = async () => {
     const todo = {
@@ -39,11 +46,20 @@ const Todo = () => {
       console.error('deu erro...', error)
     }
   }
-  useEffect(() => {
-    if (userTodo) {
-      setUserTodo(userTodo.loadTodo)
+
+  const handleRemoveTodo = async (id: string) => {
+    try {
+      const { data } = await apolloClient.mutate({
+        mutation: REMOVE_TODO,
+        variables: { id }
+      })
+      if (data.removeTodo) {
+        console.log(userTodos.filter((todo) => todo))
+        setUserTodo(userTodos.filter((todo: any) => todo.id !== id))
+      }
+    } catch (error) {
     }
-  }, [userTodo])
+  }
 
   return (
     <>
@@ -77,7 +93,9 @@ const Todo = () => {
                 <ListItem button >
                   <TodoCheckbox icon={<RadioButtonUnchecked color='inherit'/>} checkedIcon={<CheckCircle/>} />
                   <ListItemText primary={todo.name} />
-                  <Delete />
+                  <span onClick={async () => await handleRemoveTodo(todo.id)}>
+                    <Delete />
+                  </span>
                 </ListItem>
                 <Hr />
               </div>
