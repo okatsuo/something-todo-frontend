@@ -69,46 +69,50 @@ const Todo = () => {
   }
 
   return (
-      <Styles.Wrapper>
-        <Container maxWidth='md'>
-          <Styles.Content>
-            <Box m={3} justifyContent='center' alignItems='center' display='flex' flexDirection='row'>
-              <InputAddTodo
-                variant='filled'
-                label='adicionar uma nova tarefa'
-                style={{ paddingRight: '15px' }}
-                fullWidth
-                value={newTodo}
-                onChange={(event) => setNewTodo(event.target.value)}
-                onKeyPress={async (key) => await handleKeyboardEvent(key)}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <div onClick={async () => await handleRegisterTodo()} style={{ cursor: 'pointer' }}>
-                        <AddCircle accentHeight='20px' />
-                      </div>
-                    </InputAdornment>
-                  ),
-                  disableUnderline: true
-                }}
-              />
-            </Box>
-            <List component="nav" aria-label="mailbox folders">
-              {!loading &&
-                userTodos.map((todo: any) =>
-                  <div key={todo.id}>
-                    <ListItem button key={todo.id}>
-                      <TodoCheckbox />
-                      <ListItemText primary={todo.name} />
-                      <DeleteTodo onClick={async () => await handleRemoveTodo(todo.id)}/>
-                    </ListItem>
-                    <Hr />
-                  </div>
-                )}
-            </List>
-          </Styles.Content>
-        </Container>
-      </Styles.Wrapper>
+    <Styles.Wrapper>
+      <Container maxWidth='md'>
+        <Styles.Content>
+          <Box m={3} justifyContent='center' alignItems='center' display='flex' flexDirection='row'>
+            <InputAddTodo
+              variant='filled'
+              label='adicionar uma nova tarefa'
+              style={{ paddingRight: '15px' }}
+              fullWidth
+              value={newTodo}
+              onChange={(event) => setNewTodo(event.target.value)}
+              onKeyPress={async (key) => await handleKeyboardEvent(key)}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <div onClick={async () => await handleRegisterTodo()} style={{ cursor: 'pointer' }}>
+                      <AddCircle accentHeight='20px' />
+                    </div>
+                  </InputAdornment>
+                ),
+                disableUnderline: true
+              }}
+            />
+          </Box>
+          <List component="nav" aria-label="mailbox folders">
+            {!loading &&
+              userTodos.map((todo: any) =>
+                <div key={todo.id}>
+                  <ListItem button key={todo.id}>
+                    <TodoCheckbox checked={!todo.active} />
+                    <ListItemText
+                      primary={
+                        !todo.active ? <del>{todo.name}</del> : todo.name
+                      }
+                    />
+                    <DeleteTodo onClick={async () => await handleRemoveTodo(todo.id)} />
+                  </ListItem>
+                  <Hr />
+                </div>
+              )}
+          </List>
+        </Styles.Content>
+      </Container>
+    </Styles.Wrapper>
   )
 }
 
