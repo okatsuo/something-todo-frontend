@@ -13,14 +13,16 @@ export const TodoCheckbox = ({ checked, text }: TodoCheckboxProps, props: Detail
     return setIsOpen(!isOpen)
   }
   return (
-    <div {...props}>
+    <div {...props} style={{ display: 'flex', alignItems: 'center' }}>
       <Styles.Checkbox
-      onClick={handleChecked}
-       checked={isOpen}
+        onClick={handleChecked}
+        checked={isOpen}
         icon={<Styles.CheckCircleOutline />}
         checkedIcon={<Styles.CheckCircleSharp />}
       />
-      {isOpen ? <del>{text}</del> : text }
+      <Styles.TextContent>
+        {isOpen ? <del>{text}</del> : text}
+      </Styles.TextContent>
     </div>
   )
 }

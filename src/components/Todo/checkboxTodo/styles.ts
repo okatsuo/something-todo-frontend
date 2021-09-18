@@ -19,3 +19,10 @@ ${({ theme }) => css`
 color: ${theme.colors.green}
 `}
 `
+
+export const TextContent = styled.div`
+    max-width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+`
