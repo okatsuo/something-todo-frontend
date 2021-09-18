@@ -5,6 +5,7 @@ import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { initializeApollo } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
 import { REMOVE_TODO } from '../../../graphql/mutations/removeTodo'
+import { UPDATE_TODO } from '../../../graphql/mutations/updateTodo'
 import { USER_TODO } from '../../../graphql/queries/userTodos'
 import { UserLoggedInfo } from '../../../utils/user-account-stuff'
 import { Hr } from '../../basics/hr'
@@ -62,6 +63,26 @@ const Todo = () => {
     }
   }
 
+  const handleUpdateTodo = async (fields: any) => {
+    const dataToUpdate = {
+      todo_id: fields.id,
+      fields: {
+        name: fields.name,
+        user_id: fields.user_id,
+        active: !fields.active,
+        description: fields.description
+      }
+    }
+    try {
+      await apolloClient.mutate({
+        mutation: UPDATE_TODO,
+        variables: dataToUpdate
+      })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const handleKeyboardEvent = async ({ key }: KeyboardEvent) => {
     if (key === 'Enter') {
       await handleRegisterTodo()
@@ -98,10 +119,12 @@ const Todo = () => {
               userTodos.map((todo: any) =>
                 <div key={todo.id}>
                   <ListItem button key={todo.id}>
-                    <TodoCheckbox checked={!todo.active} />
+
                     <ListItemText
                       primary={
-                        !todo.active ? <del>{todo.name}</del> : todo.name
+                        <span onClick={async () => await handleUpdateTodo(todo)}>
+                          <TodoCheckbox checked={!todo.active} text={todo.name}/>
+                        </span>
                       }
                     />
                     <DeleteTodo onClick={async () => await handleRemoveTodo(todo.id)} />
