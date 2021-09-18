@@ -70,7 +70,6 @@ const Todo = () => {
   }
 
   return (
-    <>
       <Styles.Wrapper>
         <Container maxWidth='md'>
           <Styles.Content>
@@ -111,7 +110,6 @@ const Todo = () => {
           </Styles.Content>
         </Container>
       </Styles.Wrapper>
-    </>
   )
 }
 
