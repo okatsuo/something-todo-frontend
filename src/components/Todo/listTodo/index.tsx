@@ -17,7 +17,7 @@ import * as Styles from './styles'
 const Todo = () => {
   const apolloClient = initializeApollo()
   const [newTodo, setNewTodo] = useState('')
-  const [userTodos, setUserTodo] = useState([])
+  const [userTodos, setUserTodo] = useState<any[]>([])
   const userLogged = UserLoggedInfo()
   const userCookies = UserLoggedInfo()
   const { data: userTodo, loading } = useQuery(USER_TODO, {
@@ -44,7 +44,8 @@ const Todo = () => {
         variables: todo
       })
       setNewTodo('')
-      setUserTodo(userTodos.concat(data.todoCreate))
+      const { todoCreate } = data
+      setUserTodo([...userTodos, todoCreate])
     } catch (error) {
       console.error('deu erro...', error)
     }
