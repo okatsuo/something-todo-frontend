@@ -39,18 +39,15 @@ const AddTodo = (props: AddTodoProps) => {
     }
   }
 
-  const handleKeyboardEvent = async ({ key }: React.KeyboardEvent<HTMLDivElement>) =>
-    key === 'Enter' ? await handleRegisterTodo() : null
-
   return (
     <Styles.InputAddTodo
-      variant='filled'
+      onKeyPress={async (target) => target.key === 'Enter' ? await handleRegisterTodo() : null}
+      onChange={(event) => setNewTodo(event.target.value)}
       label='adicionar uma nova tarefa'
       style={{ paddingRight: '15px' }}
-      fullWidth
+      variant='filled'
       value={newTodo}
-      onChange={(event) => setNewTodo(event.target.value)}
-      onKeyPress={async (target) => await handleKeyboardEvent(target)}
+      fullWidth
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
