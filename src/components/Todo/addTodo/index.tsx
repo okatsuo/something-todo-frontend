@@ -1,41 +1,38 @@
-import { TextField } from '@material-ui/core'
-import styled from 'styled-components'
+import { InputAdornment } from '@material-ui/core'
+import { AddCircle } from '@material-ui/icons'
+import React from 'react'
+import * as Styles from './styles'
 
-export const InputAddTodo = styled(TextField)`
+interface AddTodoProps {
+  value: string
+  setNewTodo: (value: string) => void
+  handleKeyboardEvent: (value: React.KeyboardEvent<HTMLDivElement>) => void
+  handleRegisterTodo: () => void
+}
 
-  /* MuiOutlinedInput-root */
-  & .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline{
-    border-color: white;
-  }
+const AddTodo = (props: AddTodoProps) => {
+  const { value, setNewTodo, handleKeyboardEvent, handleRegisterTodo } = props
+  return (
+    <Styles.InputAddTodo
+      variant='filled'
+      label='adicionar uma nova tarefa'
+      style={{ paddingRight: '15px' }}
+      fullWidth
+      value={value}
+      onChange={(event) => setNewTodo(event.target.value)}
+      onKeyPress={async (target) => handleKeyboardEvent(target)}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <div onClick={handleRegisterTodo} style={{ cursor: 'pointer' }}>
+              <AddCircle accentHeight='20px' />
+            </div>
+          </InputAdornment>
+        ),
+        disableUnderline: true
+      }}
+    />
+  )
+}
 
-  & .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
-    border-color: lightgray;
-  }
-
-  & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline{
-    border-color: gray;
-  }
-
-  /* label */
-  & .MuiInputLabel-root {
-      color: whitesmoke;
-      margin-right: 10px;
-    }
-
-  /* input text  */
-  & .MuiInputBase-input {
-    color: white;
-  }
-
-  /* icon and  */
-  & .MuiSvgIcon-root {
-    color: #40D67C;
-    font-size: 3rem;
-  }
-
-  /* MuiFormHelperText-root */
-  & .MuiFormHelperText-root {
-    color: white;
-  }
-
-`
+export default AddTodo

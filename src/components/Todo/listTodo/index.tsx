@@ -1,6 +1,5 @@
 import { useQuery } from '@apollo/client'
-import { Box, Container, InputAdornment, List, ListItem, ListItemText } from '@material-ui/core'
-import { AddCircle } from '@material-ui/icons'
+import { Box, Container, List, ListItem, ListItemText } from '@material-ui/core'
 import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { initializeApollo } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
@@ -9,7 +8,7 @@ import { UPDATE_TODO } from '../../../graphql/mutations/updateTodo'
 import { USER_TODO } from '../../../graphql/queries/userTodos'
 import { UserLoggedInfo } from '../../../utils/user-account-stuff'
 import { Hr } from '../../basics/hr'
-import { InputAddTodo } from '../addTodo'
+import AddTodo from '../addTodo'
 import { TodoCheckbox } from '../checkboxTodo'
 import DeleteTodo from '../removeTodo'
 import * as Styles from './styles'
@@ -60,6 +59,7 @@ const Todo = () => {
         setUserTodo(userTodos.filter((todo: any) => todo.id !== id))
       }
     } catch (error) {
+      console.error('problema com a remoção da tarefa')
     }
   }
 
@@ -94,27 +94,14 @@ const Todo = () => {
       <Container maxWidth='md'>
         <Styles.Content>
           <Box m={3} justifyContent='center' alignItems='center' display='flex' flexDirection='row'>
-            <InputAddTodo
-              variant='filled'
-              label='adicionar uma nova tarefa'
-              style={{ paddingRight: '15px' }}
-              fullWidth
+            <AddTodo
               value={newTodo}
-              onChange={(event) => setNewTodo(event.target.value)}
-              onKeyPress={async (key) => await handleKeyboardEvent(key)}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <div onClick={async () => await handleRegisterTodo()} style={{ cursor: 'pointer' }}>
-                      <AddCircle accentHeight='20px' />
-                    </div>
-                  </InputAdornment>
-                ),
-                disableUnderline: true
-              }}
+              handleKeyboardEvent={handleKeyboardEvent}
+              setNewTodo={setNewTodo}
+              handleRegisterTodo={handleRegisterTodo}
             />
           </Box>
-          <List component="nav" aria-label="mailbox folders">
+          <List>
             {!loading &&
               userTodos.map((todo: any) =>
                 <div key={todo.id}>
@@ -123,7 +110,7 @@ const Todo = () => {
                     <ListItemText
                       primary={
                         <span onClick={async () => await handleUpdateTodo(todo)}>
-                          <TodoCheckbox checked={!todo.active} text={todo.name}/>
+                          <TodoCheckbox checked={!todo.active} text={todo.name} />
                         </span>
                       }
                     />
