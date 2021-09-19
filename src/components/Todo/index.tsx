@@ -3,8 +3,6 @@ import { Box, Container, List } from '@material-ui/core'
 import React, { KeyboardEvent, useEffect, useState } from 'react'
 import { initializeApollo } from '../../graphql/client'
 import { CREATE_TODO } from '../../graphql/mutations/createTodo'
-import { REMOVE_TODO } from '../../graphql/mutations/removeTodo'
-import { UPDATE_TODO } from '../../graphql/mutations/updateTodo'
 import { USER_TODO } from '../../graphql/queries/userTodos'
 import { UserLoggedInfo } from '../../utils/user-account-stuff'
 import AddTodo from './addTodo'
@@ -47,40 +45,6 @@ const Todo = () => {
     }
   }
 
-  const handleRemoveTodo = async (id: string) => {
-    try {
-      const { data } = await apolloClient.mutate({
-        mutation: REMOVE_TODO,
-        variables: { id }
-      })
-      if (data.removeTodo) {
-        setUserTodo(userTodos.filter((todo: any) => todo.id !== id))
-      }
-    } catch (error) {
-      console.error('problema com a remoção da tarefa')
-    }
-  }
-
-  const handleUpdateTodo = async (fields: any) => {
-    const dataToUpdate = {
-      todo_id: fields.id,
-      fields: {
-        name: fields.name,
-        user_id: fields.user_id,
-        active: !fields.active,
-        description: fields.description
-      }
-    }
-    try {
-      await apolloClient.mutate({
-        mutation: UPDATE_TODO,
-        variables: dataToUpdate
-      })
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   const handleKeyboardEvent = async ({ key }: KeyboardEvent) => {
     if (key === 'Enter') {
       await handleRegisterTodo()
@@ -102,8 +66,7 @@ const Todo = () => {
           <List>
             {!loading &&
               <ListTodo
-                handleRemoveTodo={handleRemoveTodo}
-                handleUpdateTodo={handleUpdateTodo}
+                setUserTodo={setUserTodo}
                 userTodos={userTodos}
               />
             }
