@@ -19,9 +19,8 @@ const Todo = () => {
   const [newTodo, setNewTodo] = useState('')
   const [userTodos, setUserTodo] = useState<any[]>([])
   const userLogged = UserLoggedInfo()
-  const userCookies = UserLoggedInfo()
   const { data: userTodo, loading } = useQuery(USER_TODO, {
-    variables: { user_id: userCookies?.id }
+    variables: { user_id: userLogged?.id }
   })
 
   useEffect(() => {
