@@ -39,11 +39,8 @@ const AddTodo = (props: AddTodoProps) => {
     }
   }
 
-  const handleKeyboardEvent = async ({ key }: React.KeyboardEvent<HTMLDivElement>) => {
-    if (key === 'Enter') {
-      await handleRegisterTodo()
-    }
-  }
+  const handleKeyboardEvent = async ({ key }: React.KeyboardEvent<HTMLDivElement>) =>
+    key === 'Enter' ? await handleRegisterTodo() : null
 
   return (
     <Styles.InputAddTodo
