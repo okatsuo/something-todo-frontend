@@ -1,13 +1,6 @@
+import { ListItem as MaterialListItem, ListItemText as MaterialListItemText } from '@material-ui/core'
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const ListItem = styled(MaterialListItem)``
 
-`
-
-export const Content = styled.div`
-  display: 'flex';
-  margin: '2rem';
-  justify-content: 'center';
-  flex-direction: 'column';
-  align-items: 'center';
-`
+export const ListItemText = styled(MaterialListItemText)``

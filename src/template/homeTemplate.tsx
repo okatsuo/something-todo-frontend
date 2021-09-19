@@ -1,5 +1,5 @@
 import Header from '../components/header'
-import Todo from '../components/Todo/listTodo'
+import Todo from '../components/Todo'
 
 const HomeTemplate = () => {
   return (
