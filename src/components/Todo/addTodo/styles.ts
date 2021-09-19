@@ -2,6 +2,8 @@ import { TextField } from '@material-ui/core'
 import styled from 'styled-components'
 
 export const InputAddTodo = styled(TextField)`
+  width: 100%;
+  padding-right: 15px;
 
   /* MuiOutlinedInput-root */
   & .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline{

@@ -44,10 +44,8 @@ const AddTodo = (props: AddTodoProps) => {
       onKeyPress={async (target) => target.key === 'Enter' ? await handleRegisterTodo() : null}
       onChange={(event) => setNewTodo(event.target.value)}
       label='adicionar uma nova tarefa'
-      style={{ paddingRight: '15px' }}
       variant='filled'
       value={newTodo}
-      fullWidth
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
