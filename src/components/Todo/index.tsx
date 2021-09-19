@@ -1,4 +1,4 @@
-import { UserLoggedInfo } from '../../utils/user-account-stuff'
+
 import { USER_TODO } from '../../graphql/queries/userTodos'
 import { Box, Container, List } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client'
 import * as Styles from './styles'
 import ListTodo from './listTodo'
 import AddTodo from './addTodo'
+import { UserLoggedInfo } from '../../utils/authentication'
 
 const Todo = () => {
   const [newTodo, setNewTodo] = useState('')

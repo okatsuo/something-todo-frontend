@@ -1,7 +1,7 @@
 import { NoSsr } from '@material-ui/core'
 import HomeTemplate from '../template/homeTemplate'
 import LoginTemplate from '../template/loginTemplate'
-import isLogged from '../utils/authentication'
+import { isLogged } from '../utils/authentication'
 
 const Home = (props: any) => {
   const { isAuthenticatedUser } = props

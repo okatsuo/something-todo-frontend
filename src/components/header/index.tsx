@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core'
 import Router from 'next/router'
-import { UserLoggedInfo, UserLogout } from '../../utils/user-account-stuff'
+import { UserLoggedInfo, UserLogout } from '../../utils/authentication'
 import { CustomLink } from '../basics/link'
 import { Text } from '../basics/text'
 import * as Styles from './styles'
