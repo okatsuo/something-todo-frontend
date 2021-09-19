@@ -15,12 +15,12 @@ export const Square = styled.div`
     background: ${theme.colors.secondaryBackground};
     width: auto;
     height: auto;
-    border-radius: 20px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 1px 1px 5px lightgrey;
+    box-shadow: 1px 1px 4px #25262A;
   `}
 `
 
