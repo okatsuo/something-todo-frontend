@@ -12,7 +12,7 @@ function MyApp ({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="shortcut icon" href="/chulu.png" />
+        <link rel="shortcut icon" href="/logo.svg" />
         <title>something-todo</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
