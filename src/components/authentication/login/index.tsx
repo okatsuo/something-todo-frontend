@@ -1,7 +1,6 @@
 import { Formik, Form, Field } from 'formik'
 import Router from 'next/router'
 import * as Yup from 'yup'
-import { setCookie } from 'nookies'
 import * as Styles from '../styles'
 import { USER_LOGIN } from '../../../graphql/queries/login'
 import { initializeApollo } from '../../../graphql/client'
@@ -16,6 +15,7 @@ import { Text } from '../../basics/text'
 import { CustomLink } from '../../basics/link'
 import { FormsTextField } from '../../forms/formsTextField'
 import Loading from '../../basics/loading'
+import { setUserToken } from '../../../utils/authentication/setUserToken'
 interface ILogin {
   email: string
   password: string
@@ -36,6 +36,7 @@ const schema = Yup.object().shape({
 const Login = () => {
   const [loading, setLoading] = useState(false)
   const handleSubmit = async (values: ILogin) => {
+    console.log(values)
     const apolloClient = initializeApollo()
     const user = {
       email: values.email,
@@ -48,10 +49,7 @@ const Login = () => {
         variables: user
       })
       const { token } = data.accountLogin
-      setCookie(null, 't_user', token, {
-        maxAge: values.rememberMe ? 2147483647 : 8640,
-        path: '/'
-      })
+      setUserToken({ value: token, maxAge: values.rememberMe ? 2147483647 : 8640 })
       setLoading(false)
       await Router.push('/')
     } catch (error) {

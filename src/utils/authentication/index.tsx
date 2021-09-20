@@ -1,11 +1,12 @@
 import { parseCookies, destroyCookie } from 'nookies'
 
-import { jwtDecode } from '../JWT'
+import { jwtDecode, jwtVerify } from '../JWT'
 
 export const isLogged = (context: any) => {
   const hasToken = (parseCookies(context)).t_user
-  const isAuthenticate = !!hasToken
-  return isAuthenticate
+  if (!hasToken) return false
+  const isValid = jwtVerify(hasToken)
+  return isValid
 }
 
 export const UserLoggedInfo = (context?: any) => {
