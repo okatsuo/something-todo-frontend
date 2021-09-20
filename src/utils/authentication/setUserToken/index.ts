@@ -8,7 +8,6 @@ interface setUserTokenProps {
 
 export const setUserToken = (values: setUserTokenProps) => {
   const { maxAge, value } = values
-  console.log(maxAge)
   const token = (parseCookies()).t_user
   if (token) UserLogout()
   setCookie(null, 't_user', value, {
