@@ -12,12 +12,13 @@ const Todo = () => {
   const [newTodo, setNewTodo] = useState('')
   const [userTodos, setUserTodo] = useState<any[]>([])
   const userLogged = UserLoggedInfo()
+  console.log('userLogged?.id', userLogged?.id)
   const { data: userTodo, loading } = useQuery(USER_TODO, {
     variables: { user_id: userLogged?.id }
   })
-
   useEffect(() => {
     if (userTodo) {
+      console.log('data:', userTodo)
       setUserTodo(userTodo.loadTodo)
     }
   }, [userTodo])
