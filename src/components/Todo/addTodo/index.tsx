@@ -23,7 +23,6 @@ const AddTodo = (props: AddTodoProps) => {
     const todo = {
       name: newTodo,
       description: '',
-      active: true,
       user_id: userId
     }
     try {

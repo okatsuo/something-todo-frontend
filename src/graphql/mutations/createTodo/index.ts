@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
 
 export const CREATE_TODO = gql`
-mutation createTodo($user_id: String!, $name: String!, $description: String, $active: Boolean!){
-  todoCreate(user_id: $user_id, name: $name,  description: $description, active: $active){
+mutation createTodo($user_id: Int!, $name: String!, $description: String){
+  todoCreate(user_id: $user_id, name: $name,  description: $description, active: true){
     id
-    user_id
+    account_id
     name
     description
     active
