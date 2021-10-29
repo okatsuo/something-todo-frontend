@@ -17,7 +17,8 @@ const ListTodo = (props: ListTodoProps) => {
 
   const apolloClient = initializeApollo()
 
-  const handleRemoveTodo = async (id: string) => {
+  const handleRemoveTodo = async (id: number) => {
+    console.log(id)
     try {
       const { data } = await apolloClient.mutate({
         mutation: REMOVE_TODO,
