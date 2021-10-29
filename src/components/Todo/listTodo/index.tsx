@@ -33,7 +33,7 @@ const ListTodo = (props: ListTodoProps) => {
 
   const handleUpdateTodo = async (fields: any) => {
     const dataToUpdate = {
-      todo_id: fields.id,
+      id: fields.id,
       fields: {
         active: !fields.active
       }
