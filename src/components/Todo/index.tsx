@@ -30,11 +30,9 @@ const Todo = () => {
             />
           </Box>
           <List>
-            {!loading &&
               <ListTodo
                 userTodos={userTodos}
               />
-            }
           </List>
         </Styles.Content>
       </Container>
