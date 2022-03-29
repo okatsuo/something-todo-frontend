@@ -3,7 +3,6 @@ import Router from 'next/router'
 import * as Yup from 'yup'
 import * as Styles from '../styles'
 import { USER_LOGIN } from '../../../graphql/queries/login'
-import { initializeApollo } from '../../../graphql/client'
 import sweetAlert from '../../../utils/window-alert'
 import { FormsButton } from '../../forms/formsButton'
 import { ArrowForwardIos, LockOpen } from '@material-ui/icons'
@@ -16,6 +15,7 @@ import { CustomLink } from '../../basics/link'
 import { FormsTextField } from '../../forms/formsTextField'
 import Loading from '../../basics/loading'
 import { setUserToken } from '../../../utils/authentication/setUserToken'
+import { apolloClient } from '../../../graphql/client'
 interface ILogin {
   email: string
   password: string
@@ -36,7 +36,6 @@ const schema = Yup.object().shape({
 const Login = () => {
   const [loading, setLoading] = useState(false)
   const handleSubmit = async (values: ILogin) => {
-    const apolloClient = initializeApollo()
     const user = {
       email: values.email,
       password: values.password

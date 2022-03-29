@@ -2,7 +2,6 @@ import { Field, Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { ArrowForwardIos } from '@material-ui/icons'
 import Router from 'next/router'
-import { useApollo } from '../../../graphql/client'
 import { USER_CREATE } from '../../../graphql/mutations/createUser'
 import sweetAlert from '../../../utils/window-alert'
 import * as Styles from '../styles'
@@ -14,6 +13,7 @@ import { FormsTextField } from '../../forms/formsTextField'
 import React, { useState } from 'react'
 import { InputAdornment } from '@material-ui/core'
 import Loading from '../../basics/loading'
+import { apolloClient } from '../../../graphql/client'
 
 const initialValues = {
   email: '',
@@ -38,7 +38,6 @@ const schema = Yup.object().shape({
 
 const Register = () => {
   const [loading, setLoading] = useState(false)
-  const apolloClient = useApollo()
   const handleSubmit = async (values: registerFields) => {
     setLoading(true)
     if (values.password === values.passwordConfirmation) {

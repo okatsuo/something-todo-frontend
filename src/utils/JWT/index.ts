@@ -6,6 +6,7 @@ export const jwtDecode = (value: string) => {
 }
 
 export const jwtVerify = (token: string) => {
+  // TODO: move the responsability only to backend. We can take the user profile instead doing that.
   const secretKey = process.env.JWT_ENCODED as string
   try {
     jwt.verify(token, secretKey)
