@@ -5,12 +5,10 @@ import LoginTemplate from '../template/loginTemplate'
 import { isLogged } from '../utils/authentication'
 
 interface HomeProps {
-  props: {
-    isAuthenticatedUser: boolean
-  }
+  isAuthenticatedUser: boolean
 }
 
-const Home = ({ props }: HomeProps) => {
+const Home = (props: HomeProps) => {
   const { isAuthenticatedUser } = props
   return (
     <NoSsr>
