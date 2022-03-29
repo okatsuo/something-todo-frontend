@@ -46,6 +46,8 @@ const AddTodo = (props: AddTodoProps) => {
           })
         }
       })
+
+      setNewTodo('')
     } catch (error) {
       console.error('deu erro...', error)
     }
