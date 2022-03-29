@@ -15,9 +15,6 @@ const Todo = () => {
     variables: { user_id: userLogged?.id }
   })
 
-  if (loading) return null
-
-  const userTodos = data.loadTodo
   return (
     <Styles.Wrapper>
       <Container maxWidth='md'>
@@ -30,9 +27,11 @@ const Todo = () => {
             />
           </Box>
           <List>
+            {!loading &&
               <ListTodo
-                userTodos={userTodos}
+                userTodos={data.loadTodo}
               />
+            }
           </List>
         </Styles.Content>
       </Container>
