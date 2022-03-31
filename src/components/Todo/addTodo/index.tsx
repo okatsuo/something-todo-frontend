@@ -1,7 +1,7 @@
 import { useMutation } from '@apollo/client'
 import { InputAdornment } from '@material-ui/core'
 import { AddCircle } from '@material-ui/icons'
-import React, { useRef } from 'react'
+import React from 'react'
 import { apolloClient } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
 import { USER_TODO } from '../../../graphql/queries/userTodos'
@@ -23,10 +23,9 @@ const buildTodo = (newTodo: string, userId: string) => ({
 const AddTodo = (props: AddTodoProps) => {
   const { setNewTodo, newTodo, userId } = props
   const [createTodo] = useMutation(CREATE_TODO)
-  const addTodoInputRef = useRef<HTMLDivElement>(null)
 
   const handleRegisterTodo = async () => {
-    if (!newTodo) return addTodoInputRef.current?.focus()
+    if (!newTodo) return document.getElementById('addTodoInput')?.focus()
 
     const todo = buildTodo(newTodo, userId)
     try {
@@ -58,10 +57,10 @@ const AddTodo = (props: AddTodoProps) => {
     <Styles.InputAddTodo
       onKeyPress={async (target) => target.key === 'Enter' && await handleRegisterTodo()}
       onChange={(event) => setNewTodo(event.target.value)}
+      id='addTodoInput'
       label='adicionar uma nova tarefa'
       variant='filled'
       value={newTodo}
-      ref={addTodoInputRef}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
