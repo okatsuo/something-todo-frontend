@@ -1,6 +1,6 @@
 import { InputAdornment } from '@material-ui/core'
 import { AddCircle } from '@material-ui/icons'
-import React from 'react'
+import React, { useRef } from 'react'
 import { initializeApollo } from '../../../graphql/client'
 import { CREATE_TODO } from '../../../graphql/mutations/createTodo'
 import * as Styles from './styles'
@@ -14,12 +14,15 @@ interface AddTodoProps {
 }
 
 const AddTodo = (props: AddTodoProps) => {
+  const addTodoInputRef = useRef<HTMLDivElement>(null)
+
   const { setNewTodo, setUserTodo, newTodo, userId, userTodos } = props
 
   const apolloClient = initializeApollo()
 
   const handleRegisterTodo = async () => {
-    if (!newTodo) return
+    if (!newTodo) return addTodoInputRef.current?.focus()
+
     const todo = {
       name: newTodo,
       description: '',
@@ -45,6 +48,7 @@ const AddTodo = (props: AddTodoProps) => {
       label='adicionar uma nova tarefa'
       variant='filled'
       value={newTodo}
+      ref={addTodoInputRef}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
